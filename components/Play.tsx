@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import { db } from '../firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import VoteList from './VoteList'
 
 export default function Play({ setCurrentPage }: any) {
   const [yourEmail, setYourEmail] = useState('')
