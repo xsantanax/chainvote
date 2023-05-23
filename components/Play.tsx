@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import SectionHeader from './SectionHeader'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import { db } from '../firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
@@ -32,8 +31,6 @@ export default function Play() {
 
   return (
     <div id='about' className='bodyItemWrapper'>
-      {/* <SectionHeader title='Play' /> */}
-
       {!showYourEmail && !concluded && !showResults && (
         <>
           <div className='mb-10 text-[26px] font-[600]'>CHAINVOTE</div>
@@ -54,7 +51,6 @@ export default function Play() {
             />
             <button
               type='submit'
-              // disabled={!theirEmail}
               className='bg-[#11A37F] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
                        disabled:cursor-not-allowed disabled:bg-gray-300 '
             >
