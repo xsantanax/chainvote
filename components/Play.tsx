@@ -1,8 +1,9 @@
 'use client'
 import { useState } from 'react'
 import SectionHeader from './SectionHeader'
-import Image from 'next/image'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
+import { db } from '../firebase'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 
 export default function Play() {
   const [yourEmail, setYourEmail] = useState('')
@@ -16,8 +17,16 @@ export default function Play() {
     setShowYourEmail(true)
   }
 
-  const handleSubmit2 = (e: any) => {
+  const handleSubmit2 = async (e: any) => {
     e.preventDefault()
+
+    const vote = {
+      from: yourEmail,
+      to: theirEmail,
+      createdAt: serverTimestamp()
+    }
+
+    await addDoc(collection(db, 'votes'), vote)
     setConcluded(true)
   }
 
