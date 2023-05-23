@@ -1,23 +1,21 @@
-import Image from 'next/image'
+import { db } from '../firebase'
+import { collection } from 'firebase/firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 export default function Home({ setCurrentPage }: any) {
-  return (
-    <div
-      id='/'
-      className=' w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'
-    >
-      <div className='text-[32px] md:text-[40px] font-[600]'>Results</div>
-      <div className='py-[20px] text-[52px] md:text-[60px]  '></div>
-      <Image src='/img/foto.jpg' width={150} height={200} alt='' />
+  const [votes] = useCollection(collection(db, 'votes'))
+  votes?.docs.map((item) => console.log(item.data().from, item.data().to))
 
-      <>
-        <div
-          className='cursor-pointer my-10'
-          onClick={() => setCurrentPage('Play')}
-        >
-          Go back
-        </div>
-      </>
+  return (
+    <div className=' w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'>
+      <div className='text-[32px] md:text-[40px] font-[600]'>Results</div>
+
+      <div
+        className='cursor-pointer my-10'
+        onClick={() => setCurrentPage('Play')}
+      >
+        Go back
+      </div>
     </div>
   )
 }

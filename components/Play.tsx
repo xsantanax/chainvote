@@ -130,7 +130,7 @@ export default function Play({ setCurrentPage }: any) {
           </div>
         </>
       )}
-      <VoteList />
+      {/* <VoteList /> */}
     </div>
   )
 }
