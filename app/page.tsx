@@ -1,5 +1,5 @@
 import Home from '../components/Home'
-import About from '../components/About'
+import Play from '../components/Play'
 import Experience from '../components/Experience'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
@@ -7,11 +7,11 @@ import Footer from '../components/Footer'
 export default function HomePage() {
   return (
     <>
+      <Play />
       <Home />
-      <About />
-      <Experience />
-      <Contact />
-      <Footer />
+      {/* <Experience /> */}
+      {/* <Contact /> */}
+      {/* <Footer /> */}
     </>
   )
 }

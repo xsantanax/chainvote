@@ -27,7 +27,7 @@ function Header() {
             window.location.href = '#'
           }}
         >
-          Rafael Santana
+          Politik
         </div>
 
         <div className='flex-1' />
@@ -35,37 +35,28 @@ function Header() {
         <div
           className='headerItem'
           onClick={() => {
-            window.location.href = '#'
+            window.location.href = '#play'
           }}
         >
-          Home
+          Play
         </div>
 
         <div
           className='headerItem'
           onClick={() => {
-            window.location.href = '#about'
+            window.location.href = '#results'
           }}
         >
-          About
+          Results
         </div>
 
         <div
           className='headerItem'
           onClick={() => {
-            window.location.href = '#experience'
+            window.location.href = '#logout'
           }}
         >
-          Experience
-        </div>
-
-        <div
-          className='headerItem'
-          onClick={() => {
-            window.location.href = '#contact'
-          }}
-        >
-          Contact
+          Logout
         </div>
       </div>
     </div>
