@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <>
       <Play />
-      <Home />
+      {/* <Home /> */}
       {/* <Experience /> */}
       {/* <Contact /> */}
       {/* <Footer /> */}

@@ -23,6 +23,11 @@ export default function Play() {
   return (
     <div id='about' className='bodyItemWrapper'>
       {/* <SectionHeader title='Play' /> */}
+      <div className='mb-2'>To play, think of a close political leader.</div>
+      <div className='mb-[72px]'>
+        Someone succesful, who you listens to, and you can talk to with ease.
+      </div>
+
       {!showYourEmail && !concluded && (
         <>
           <div>Type in the email of your chosen one.</div>

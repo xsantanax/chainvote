@@ -13,12 +13,12 @@ export default async function RootLayout({
       <head />
       <body>
         <Toaster position='top-right' />
-        <div className='md:hidden'>
+        {/* <div className='md:hidden'>
           <HeaderMobile />
         </div>
         <div className='hidden md:block'>
           <Header />
-        </div>
+        </div> */}
         {children}
       </body>
     </html>
