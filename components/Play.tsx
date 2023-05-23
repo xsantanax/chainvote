@@ -81,12 +81,31 @@ export default function Play() {
       )}
       {concluded && (
         <>
-          <div>
-            Voce pode confirmar seu voto clicando no link enviado ao seu email.
+          <div>Confirme seu voto clicando no link enviado ao seu email.</div>
+          <div className='mb-16 mt-10'>
+            Seu voto sera computado para:{' '}
+            <span className='underline'>{theirEmail}</span>
           </div>
-          <br />
-          <div>Seu voto sera computado para: {theirEmail}</div>
           {/* <UserCard /> */}
+          <div className='flex gap-8 '>
+            <button
+              type='submit'
+              // disabled={!theirEmail || !email || !text}
+              className='bg-[#11A37F] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
+                       disabled:cursor-not-allowed disabled:bg-gray-300 '
+            >
+              <div>Ja confirmei</div>
+            </button>
+
+            <button
+              type='submit'
+              // disabled={!theirEmail || !email || !text}
+              className='bg-[#2145AF] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
+                       disabled:cursor-not-allowed disabled:bg-gray-300 '
+            >
+              <div>Ver resultados</div>
+            </button>
+          </div>
         </>
       )}
     </div>
