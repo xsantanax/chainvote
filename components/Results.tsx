@@ -10,7 +10,9 @@ export default function Home({ setCurrentPage }: any) {
 
   votes?.docs.map((item) => console.log(item.data().from, item.data().to))
   votes?.docs.map((item) => rawVotes.push(item.data()))
-  console.log(rawVotes)
+  // console.log(rawVotes)
+
+  //0 - check for circular voting
 
   //1st - create one/two user objects for each vote
   rawVotes.map((vote: any) => {
@@ -34,6 +36,32 @@ export default function Home({ setCurrentPage }: any) {
 
   //2nd - map through rawVotes looking at vote.to
   //find him by id on users array and add vote.from to his directVoters
+  let votedObjIndex: any
+
+  rawVotes.map((vote: any) => {
+    console.log(vote.to)
+    votedObjIndex = users.findIndex((obj: any) => obj.id == vote.to)
+    // console.log('users[votedObjIndex]', users[votedObjIndex])
+    users[votedObjIndex].directVoters.push(vote.from)
+    users[votedObjIndex].allVoters.push(vote.from)
+    // console.log('users[votedObjIndex] after', users[votedObjIndex])
+    console.log('users[votedObjIndex].vote', users[votedObjIndex].vote)
+    console.log('!!users[votedObjIndex].vote', !!users[votedObjIndex].vote)
+
+    //circular shit happening
+    //add security checks now
+    while (!!users[votedObjIndex].vote) {
+      console.log('votedObjIndex', votedObjIndex)
+      console.log('users[votedObjIndex].vote', users[votedObjIndex].vote)
+
+      votedObjIndex = users.findIndex(
+        (obj: any) => obj.id == users[votedObjIndex].vote
+      )
+      users[votedObjIndex].allVoters.push(vote.from)
+    }
+  })
+
+  console.log(users)
 
   //3rd - map through users looking at vote
   //go to his vote
@@ -57,7 +85,7 @@ export default function Home({ setCurrentPage }: any) {
   //   a.totalVotes < b.totalVotes ? 1 : -1
   // )
 
-  console.log(processedVotes)
+  // console.log(processedVotes)
 
   return (
     <div className=' w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'>
