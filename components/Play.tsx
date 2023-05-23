@@ -9,6 +9,7 @@ export default function Play() {
   const [theirEmail, setTheirEmail] = useState('')
   const [showYourEmail, setShowYourEmail] = useState(false)
   const [concluded, setConcluded] = useState(false)
+  const [showResults, setShowResults] = useState(false)
 
   const handleSubmit1 = (e: any) => {
     e.preventDefault()
@@ -23,13 +24,16 @@ export default function Play() {
   return (
     <div id='about' className='bodyItemWrapper'>
       {/* <SectionHeader title='Play' /> */}
-      <div className='mb-2'>To play, think of a close political leader.</div>
-      <div className='mb-[72px]'>
-        Someone succesful, who you listens to, and you can talk to with ease.
-      </div>
 
-      {!showYourEmail && !concluded && (
+      {!showYourEmail && !concluded && !showResults && (
         <>
+          <div className='mb-10 text-[26px] font-[600]'>CHAINVOTE</div>
+          <div className='mb-2'>
+            To play, think of a close political leader.
+          </div>
+          <div className='mb-[72px]'>
+            Someone succesful, who you listen to, and you can talk to with ease.
+          </div>
           <div>Type in the email of your chosen one.</div>
           <form onSubmit={handleSubmit1} className='gap-5 py-10 col w-[400px]'>
             <input
@@ -49,9 +53,15 @@ export default function Play() {
               <PaperAirplaneIcon className='h-4 w-4 -rotate-45 mt-[3px] ml-3' />
             </button>
           </form>
+          <div
+            className='cursor-pointer mt-[16px] text-[16px] text-blue-600'
+            onClick={() => setShowResults(true)}
+          >
+            See results
+          </div>
         </>
       )}
-      {showYourEmail && !concluded && (
+      {showYourEmail && !concluded && !showResults && (
         <>
           <div>
             You are chosing {theirEmail}.
@@ -84,7 +94,7 @@ export default function Play() {
           </form>
         </>
       )}
-      {concluded && (
+      {concluded && !showResults && (
         <>
           <div>Confirme seu voto clicando no link enviado ao seu email.</div>
           <div className='mb-16 mt-10'>
@@ -111,6 +121,14 @@ export default function Play() {
               <div>Ver resultados</div>
             </button>
           </div>
+        </>
+      )}
+      {showResults && (
+        <>
+          <div className='cursor-pointer' onClick={() => setShowResults(false)}>
+            Go back
+          </div>
+          <div className='py-20'>Results</div>
         </>
       )}
     </div>
