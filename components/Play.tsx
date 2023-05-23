@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import { db } from '../firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import VoteList from './VoteList'
 
-export default function Play() {
+export default function Play({ setCurrentPage }: any) {
   const [yourEmail, setYourEmail] = useState('')
   const [theirEmail, setTheirEmail] = useState('')
   const [showYourEmail, setShowYourEmail] = useState(false)
   const [concluded, setConcluded] = useState(false)
-  const [showResults, setShowResults] = useState(false)
 
   const handleSubmit1 = (e: any) => {
     e.preventDefault()
@@ -31,15 +31,14 @@ export default function Play() {
 
   return (
     <div id='about' className='bodyItemWrapper'>
-      {!showYourEmail && !concluded && !showResults && (
+      <div className='mb-10 text-[26px] font-[600]'>CHAINVOTE</div>
+      <div className='mb-2'>To play, think of a close political leader.</div>
+      <div className='mb-[72px]'>
+        Someone succesful, who you listen to, and you can talk to with ease.
+      </div>
+
+      {!showYourEmail && !concluded && (
         <>
-          <div className='mb-10 text-[26px] font-[600]'>CHAINVOTE</div>
-          <div className='mb-2'>
-            To play, think of a close political leader.
-          </div>
-          <div className='mb-[72px]'>
-            Someone succesful, who you listen to, and you can talk to with ease.
-          </div>
           <div>Type in the email of your chosen one.</div>
           <form onSubmit={handleSubmit1} className='gap-5 py-10 col w-[400px]'>
             <input
@@ -60,16 +59,16 @@ export default function Play() {
           </form>
           <div
             className='cursor-pointer mt-[16px] text-[16px] text-blue-600'
-            onClick={() => setShowResults(true)}
+            onClick={() => setCurrentPage('Results')}
           >
             See results
           </div>
         </>
       )}
-      {showYourEmail && !concluded && !showResults && (
+      {showYourEmail && !concluded && (
         <>
           <div>
-            You are chosing {theirEmail}.
+            You are choosing <u>{theirEmail}</u>.
             <span
               className='cursor-pointer ml-4 text-[16px] text-blue-600'
               onClick={() => setShowYourEmail(false)}
@@ -99,43 +98,39 @@ export default function Play() {
           </form>
         </>
       )}
-      {concluded && !showResults && (
+      {concluded && (
         <>
-          <div>Confirme seu voto clicando no link enviado ao seu email.</div>
+          {/* <div>Confirme seu voto clicando no link enviado ao seu email.</div>
           <div className='mb-16 mt-10'>
             Seu voto sera computado para:{' '}
             <span className='underline'>{theirEmail}</span>
+          </div> */}
+          <div>
+            You successfully voted in <u>{theirEmail}</u>
           </div>
           {/* <UserCard /> */}
-          <div className='flex gap-8 '>
-            <button
+          <div className='flex gap-8 mt-12'>
+            {/* <button
               type='submit'
               // disabled={!theirEmail || !email || !text}
               className='bg-[#11A37F] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
                        disabled:cursor-not-allowed disabled:bg-gray-300 '
             >
               <div>Ja confirmei</div>
-            </button>
+            </button> */}
 
             <button
               type='submit'
-              // disabled={!theirEmail || !email || !text}
-              className='bg-[#2145AF] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
-                       disabled:cursor-not-allowed disabled:bg-gray-300 '
+              className='bg-[#2145AF] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150'
             >
-              <div>Ver resultados</div>
+              <div onClick={() => setCurrentPage('Results')}>
+                Ver resultados
+              </div>
             </button>
           </div>
         </>
       )}
-      {showResults && (
-        <>
-          <div className='cursor-pointer' onClick={() => setShowResults(false)}>
-            Go back
-          </div>
-          <div className='py-20'>Results</div>
-        </>
-      )}
+      <VoteList />
     </div>
   )
 }
