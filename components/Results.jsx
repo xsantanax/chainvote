@@ -1,13 +1,14 @@
 import { db } from '../firebase'
 import { collection } from 'firebase/firestore'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
 export default function Home({ setCurrentPage }) {
   const [votes] = useCollection(collection(db, 'votes'))
-  let rawVotes = []
+
+  const [myUsers, setMyUsers] = useState([])
+
   let users = []
-  let processedVotes = []
 
   const addVote = async ({ from, to }) => {
     let voterIndex, votedIndex
@@ -55,24 +56,28 @@ export default function Home({ setCurrentPage }) {
         votedIndex = users.findIndex((obj) => obj.id == users[votedIndex].vote)
         await users[votedIndex].allVoters.push(from)
       }
+      return setMyUsers(users)
     }
   }
 
   useEffect(() => {
-    votes?.docs.map((item) => rawVotes.push(item.data()))
-    votes && rawVotes.map((vote) => addVote(vote))
-    console.log(users)
+    if (votes) {
+      let rawVotes = []
+      votes.docs.map((item) => rawVotes.push(item.data()))
+      rawVotes.map((vote) => addVote(vote))
+      console.log(users)
+    }
   }, [votes])
 
   return (
     <div className=' w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'>
       <div className='text-[32px] md:text-[40px] font-[600]'>Results</div>
       <div className='col gap-4 my-16'>
-        {processedVotes.map((vote) => (
-          <div className='flex w-[250px]'>
-            <div>{vote.id}</div>
+        {myUsers.map((user) => (
+          <div key={user.id} className='flex w-[250px]'>
+            <div>{user.id}</div>
             <div className='flex-1' />
-            <div>Total Votes: {vote.totalVotes}</div>
+            <div>Total Votes: {user.allVoters.length}</div>
           </div>
         ))}
       </div>
