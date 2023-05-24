@@ -12,7 +12,7 @@ export default function VoteList() {
         <div className='col'>
           <div>from:</div>
           {votes?.docs.map((item) => (
-            <div>
+            <div key={item.data().from}>
               <u>{item.data().from}</u>
             </div>
           ))}
@@ -20,7 +20,7 @@ export default function VoteList() {
         <div className='col'>
           <div>to:</div>
           {votes?.docs.map((item) => (
-            <div>
+            <div key={item.data().from}>
               <u>{item.data().to}</u>
             </div>
           ))}

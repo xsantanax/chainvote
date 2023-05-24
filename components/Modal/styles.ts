@@ -22,7 +22,7 @@ export const Container = styled.div`
 
 export const Content = styled.div<Props>`
   ${({ backgroundColor }) => css`
-    background-color: ${backgroundColor ? backgroundColor : 'white'};
+    /* background-color: ${backgroundColor ? backgroundColor : 'white'}; */
     background-color: #222;
   `}
 
