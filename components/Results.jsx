@@ -36,8 +36,6 @@ export default function Home({ setCurrentPage }) {
 
     //then check if voted exists
     if (users.filter((e) => e.id === to).length == 0) {
-      let myAllVoters = []
-      // myAllVoters =
       //voted doesnt exist, just add it w/ 1 directVoter and me + my allVoters
       users.push({
         id: to,
@@ -48,7 +46,6 @@ export default function Home({ setCurrentPage }) {
           : [from] //also need my allVoters
       })
     } else {
-      console.log('voted exists')
       //voted already exists, find its index
       votedIndex = users.findIndex((obj) => obj.id == to)
       //update w/ voters
@@ -66,7 +63,6 @@ export default function Home({ setCurrentPage }) {
   useEffect(() => {
     votes?.docs.map((item) => rawVotes.push(item.data()))
     votes && rawVotes.map((vote) => addVote(vote))
-    // votes && console.log('rawVotes', rawVotes)
   }, [votes])
 
   return (
