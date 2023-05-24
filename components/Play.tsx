@@ -9,23 +9,34 @@ export default function Play({ setCurrentPage }: any) {
   const [theirEmail, setTheirEmail] = useState('')
   const [showYourEmail, setShowYourEmail] = useState(false)
   const [concluded, setConcluded] = useState(false)
+  const [error, setError] = useState(false)
+  const [error2, setError2] = useState(false)
 
   const handleSubmit1 = (e: any) => {
     e.preventDefault()
-    setShowYourEmail(true)
+    if (!/\S+@\S+\.\S+/.test(theirEmail)) setError(true)
+    else {
+      setShowYourEmail(true)
+      setError(false)
+    }
   }
 
   const handleSubmit2 = async (e: any) => {
     e.preventDefault()
 
-    const vote = {
-      from: yourEmail,
-      to: theirEmail,
-      createdAt: serverTimestamp()
-    }
+    if (!/\S+@\S+\.\S+/.test(yourEmail)) setError2(true)
+    else {
+      setShowYourEmail(true)
+      const vote = {
+        from: yourEmail,
+        to: theirEmail,
+        createdAt: serverTimestamp()
+      }
 
-    await addDoc(collection(db, 'votes'), vote)
-    setConcluded(true)
+      await addDoc(collection(db, 'votes'), vote)
+      setConcluded(true)
+      setError2(false)
+    }
   }
 
   return (
@@ -47,6 +58,11 @@ export default function Play({ setCurrentPage }: any) {
               placeholder='His/her email'
               onChange={(e) => setTheirEmail(e.target.value)}
             />
+            {error && (
+              <div className='ml-1 -mt-3 mb-1 text-red-600 text-[16px]'>
+                invalid email
+              </div>
+            )}
             <button
               type='submit'
               className='bg-[#11A37F] flex justify-center text-white font-bold px-4 py-2 rounded hover:opacity-50 duration-150
@@ -85,6 +101,11 @@ export default function Play({ setCurrentPage }: any) {
               placeholder='Your email'
               onChange={(e) => setYourEmail(e.target.value)}
             />
+            {error2 && (
+              <div className='ml-1 -mt-3 mb-1 text-red-600 text-[16px]'>
+                invalid email
+              </div>
+            )}
             <button
               type='submit'
               // disabled={!theirEmail || !email || !text}
