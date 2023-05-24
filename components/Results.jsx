@@ -11,7 +11,6 @@ export default function Home({ setCurrentPage }) {
 
   const addVote = async ({ from, to }) => {
     let voterIndex, votedIndex
-    console.log('adding vote', from, to)
 
     //check if voter exists
     if (users.filter((e) => e.id === from).length == 0) {
@@ -57,12 +56,12 @@ export default function Home({ setCurrentPage }) {
         await users[votedIndex].allVoters.push(from)
       }
     }
-    console.log(users)
   }
 
   useEffect(() => {
     votes?.docs.map((item) => rawVotes.push(item.data()))
     votes && rawVotes.map((vote) => addVote(vote))
+    console.log(users)
   }, [votes])
 
   return (
