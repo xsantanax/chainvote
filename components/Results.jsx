@@ -87,27 +87,27 @@ export default function Home({ setCurrentPage }) {
         {myUsers
           .sort((a, b) => b.allVoters.length - a.allVoters.length)
           .map((user) => (
-            <div key={user.id} className='flex w-[500px]'>
+            <div key={user.id} className='flex w-[300px]'>
               <div>{user.id}</div>
               <div className='flex-1' />
               {/* <div>Total Votes: {user.allVoters.length}</div> */}
               <div className='col'>
                 <div>Total Votes: {user.allVoters.length}</div>
-                <div>
+                {/* <div>
                   {user.allVoters.map((vote, index) => (
                     <div key={index}>{vote}</div>
                   ))}
-                </div>
+                </div> */}
               </div>
-              <div className='flex-1' />
-              <div className='col'>
+              {/* <div className='flex-1' /> */}
+              {/* <div className='col'>
                 <div>Direct Votes: {user.directVoters.length}</div>
                 <div>
                   {user.directVoters.map((vote, index) => (
                     <div key={index}>{vote}</div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           ))}
       </div>
