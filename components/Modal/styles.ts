@@ -24,6 +24,7 @@ export const Content = styled.div<Props>`
   ${({ backgroundColor }) => css`
     /* background-color: ${backgroundColor ? backgroundColor : 'white'}; */
     background-color: #081328;
+    /* background-color: #181838; */
   `}
 
   width: 500px;

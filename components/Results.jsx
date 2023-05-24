@@ -12,7 +12,7 @@ export default function Home({ setCurrentPage, openModal }) {
           .map((user) => (
             <div
               key={user.id}
-              className='flex w-[300px]'
+              className='flex w-[380px] cursor-pointer px-6 py-2 bg-[#181838] rounded '
               onClick={() => {
                 setCurrentUser(user)
                 openModal()
