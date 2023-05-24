@@ -22,6 +22,7 @@ export default function Home({ setCurrentPage }) {
         directVoters: [],
         allVoters: []
       })
+      voterIndex = users.length - 1
     } else {
       //voter already exists
       voterIndex = users.findIndex((obj) => obj.id == from)
@@ -55,7 +56,17 @@ export default function Home({ setCurrentPage }) {
       while (!!users[votedIndex].vote) {
         votedIndex = users.findIndex((obj) => obj.id == users[votedIndex].vote)
         await users[votedIndex].allVoters.push(from)
+        console.log(
+          users[votedIndex].allVoters.concat(users[voterIndex].allVoters)
+        )
+        users[votedIndex].allVoters = [
+          ...new Set([
+            ...users[votedIndex].allVoters,
+            ...users[voterIndex].allVoters
+          ])
+        ]
       }
+
       return setMyUsers(users)
     }
   }
@@ -73,13 +84,32 @@ export default function Home({ setCurrentPage }) {
     <div className=' w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'>
       <div className='text-[32px] md:text-[40px] font-[600]'>Results</div>
       <div className='col gap-4 my-16'>
-        {myUsers.map((user) => (
-          <div key={user.id} className='flex w-[250px]'>
-            <div>{user.id}</div>
-            <div className='flex-1' />
-            <div>Total Votes: {user.allVoters.length}</div>
-          </div>
-        ))}
+        {myUsers
+          .sort((a, b) => b.allVoters.length - a.allVoters.length)
+          .map((user) => (
+            <div key={user.id} className='flex w-[500px]'>
+              <div>{user.id}</div>
+              <div className='flex-1' />
+              {/* <div>Total Votes: {user.allVoters.length}</div> */}
+              <div className='col'>
+                <div>Total Votes: {user.allVoters.length}</div>
+                <div>
+                  {user.allVoters.map((vote, index) => (
+                    <div key={index}>{vote}</div>
+                  ))}
+                </div>
+              </div>
+              <div className='flex-1' />
+              <div className='col'>
+                <div>Direct Votes: {user.directVoters.length}</div>
+                <div>
+                  {user.directVoters.map((vote, index) => (
+                    <div key={index}>{vote}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
       <div className='cursor-pointer' onClick={() => setCurrentPage('Play')}>
         Go back
