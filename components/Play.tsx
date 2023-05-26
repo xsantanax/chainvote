@@ -26,7 +26,11 @@ export default function Play({ setCurrentPage }: any) {
 
     if (!/\S+@\S+\.\S+/.test(yourEmail)) setError2(true)
     else {
-      setShowYourEmail(true)
+      //if circular vote -> error
+      // else post vote
+      //find index
+      // let index = users.findIndex((obj) => obj.id == from)
+
       const vote = {
         from: yourEmail,
         to: theirEmail,
@@ -36,6 +40,25 @@ export default function Play({ setCurrentPage }: any) {
       await addDoc(collection(db, 'votes'), vote)
       setConcluded(true)
       setError2(false)
+      // now send mail
+      const res = await fetch('/api/sendgrid', {
+        body: JSON.stringify({
+          yourEmail,
+          theirEmail
+          // message: message,
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      })
+
+      const { error } = await res.json()
+      if (error) {
+        console.log(error)
+        return
+      }
+      // console.log(fullname, email, subject, message);
     }
   }
 
