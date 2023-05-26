@@ -7,7 +7,7 @@ async function sendEmail(req, res) {
   <div>Thank you for using Chainvote!</div>
   <div>You are voting in ${req.body.theirEmail}.</div>
   <div>To confirm your vote, click here. </div>
-  <div>To access the app, click here. </div>
+  <div>To access the app, <a href='www.google.com'>click here</a>. </div>
   </div>`
 
   const html2 = `<div>
