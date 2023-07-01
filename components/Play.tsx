@@ -1,30 +1,30 @@
-'use client'
-import { useState } from 'react'
-import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
-import { db } from '../firebase'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+'use client';
+import { useState } from 'react';
+import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { db } from '../firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 export default function Play({ setCurrentPage }: any) {
-  const [yourEmail, setYourEmail] = useState('')
-  const [theirEmail, setTheirEmail] = useState('')
-  const [showYourEmail, setShowYourEmail] = useState(false)
-  const [concluded, setConcluded] = useState(false)
-  const [error, setError] = useState(false)
-  const [error2, setError2] = useState(false)
+  const [yourEmail, setYourEmail] = useState('');
+  const [theirEmail, setTheirEmail] = useState('');
+  const [showYourEmail, setShowYourEmail] = useState(false);
+  const [concluded, setConcluded] = useState(false);
+  const [error, setError] = useState(false);
+  const [error2, setError2] = useState(false);
 
   const handleSubmit1 = (e: any) => {
-    e.preventDefault()
-    if (!/\S+@\S+\.\S+/.test(theirEmail)) setError(true)
+    e.preventDefault();
+    if (!/\S+@\S+\.\S+/.test(theirEmail)) setError(true);
     else {
-      setShowYourEmail(true)
-      setError(false)
+      setShowYourEmail(true);
+      setError(false);
     }
-  }
+  };
 
   const handleSubmit2 = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!/\S+@\S+\.\S+/.test(yourEmail)) setError2(true)
+    if (!/\S+@\S+\.\S+/.test(yourEmail)) setError2(true);
     else {
       //if circular vote -> error
       // else post vote
@@ -35,11 +35,11 @@ export default function Play({ setCurrentPage }: any) {
         from: yourEmail,
         to: theirEmail,
         createdAt: serverTimestamp()
-      }
+      };
 
-      await addDoc(collection(db, 'votes'), vote)
-      setConcluded(true)
-      setError2(false)
+      await addDoc(collection(db, 'votes'), vote);
+      setConcluded(true);
+      setError2(false);
       // now send mail
       const res = await fetch('/api/sendgrid', {
         body: JSON.stringify({
@@ -51,25 +51,24 @@ export default function Play({ setCurrentPage }: any) {
           'Content-Type': 'application/json'
         },
         method: 'POST'
-      })
+      });
 
-      const { error } = await res.json()
+      const { error } = await res.json();
       if (error) {
-        console.log(error)
-        return
+        console.log(error);
+        return;
       }
       // console.log(fullname, email, subject, message);
     }
-  }
+  };
 
   return (
     <div id='about' className='bodyItemWrapper'>
-      <div className='mb-10 text-[26px] font-[600]'>CHAINVOTE</div>
-      <div className='mb-2'>To play, think of a close political leader.</div>
-      <div className='mb-[72px]'>
-        Someone succesful, who you listen to, and you can talk to with ease.
+      <div className='mb-10 text-[26px] font-[600]'>CHOSEN.WIKI</div>
+      <div className='mb-[30px]'>Think of a close political leader.</div>
+      <div className='mb-[30px]'>
+        Someone succesful, who you listen to and can talk to with ease.
       </div>
-
       {!showYourEmail && !concluded && (
         <>
           <div>Type in the email of your chosen one.</div>
@@ -175,5 +174,5 @@ export default function Play({ setCurrentPage }: any) {
       )}
       {/* <VoteList /> */}
     </div>
-  )
+  );
 }
