@@ -4,15 +4,15 @@ export default function Home({ setCurrentPage, openModal }) {
   const { myUsers, setCurrentUser } = useVotes()
 
   return (
-    <div className=' w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'>
+    <div className='w-full min-h-[766px] px-8 md:px-16 col items-center justify-center text-shadow-mine shadow-blue-900'>
       <div className='text-[32px] md:text-[40px] font-[600]'>Results</div>
-      <div className='col gap-4 my-16'>
+      <div className='col gap-4 my-16 w-full items-center'>
         {myUsers
           .sort((a, b) => b.allVoters.length - a.allVoters.length)
           .map((user) => (
             <div
               key={user.id}
-              className='flex w-[380px] cursor-pointer px-6 py-[10px] bg-[#282838] rounded '
+              className='flex w-full max-w-[560px] cursor-pointer px-6 py-[10px] bg-[#282838] rounded flex-wrap'
               onClick={() => {
                 setCurrentUser(user)
                 openModal()
