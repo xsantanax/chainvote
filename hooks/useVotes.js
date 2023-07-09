@@ -68,9 +68,8 @@ const VotesProvider = ({ children }) => {
           ])
         ]
       }
-
-      return setMyUsers(users)
     }
+    return setMyUsers(users)
   }
 
   useEffect(() => {
